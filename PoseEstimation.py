@@ -2,7 +2,7 @@ import cv2
 import mediapipe as mp 
 import time
 
-mp_drawing_styles = mp.solutions.drawing_styles     # can comment
+# mp_drawing_styles = mp.solutions.drawing_styles     
 mpDraw = mp.solutions.drawing_utils
 mpPose = mp.solutions.pose
 pose = mpPose.Pose()        #creating pose
@@ -19,9 +19,12 @@ while True:
     # print(results.pose_landmarks)
 
     if results.pose_landmarks: 
-    
         # Draw pose landmarks on the image. (0 to 32 points are there)
-        mpDraw.draw_landmarks(img, results.pose_landmarks,mpPose.POSE_CONNECTIONS, landmark_drawing_spec=mp_drawing_styles.get_default_pose_landmarks_style()) 
+    
+         # mpDraw.draw_landmarks(img, results.pose_landmarks)  # it make all the points
+        mpDraw.draw_landmarks(img, results.pose_landmarks,mpPose.POSE_CONNECTIONS)  # it connect all the points
+        # mpDraw.draw_landmarks(img, results.pose_landmarks,mpPose.POSE_CONNECTIONS, landmark_drawing_spec=mp_drawing_styles.get_default_pose_landmarks_style())  # it make points color different
+
 
         for id, lm in enumerate(results.pose_landmarks.landmark):
             h, w, c = img.shape     #height, width, no. of channels(here is 3(which are Red, Blue, Green))
